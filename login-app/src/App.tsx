@@ -14,6 +14,7 @@ import Typography from '@mui/joy/Typography';
 import customTheme from './theme';
 import GoogleIcon from './GoogleIcon';
 import ColorSchemeToggle from './components/ColorSchemeToggle';
+import * as singleSpa from 'single-spa';
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -25,6 +26,13 @@ interface SignInFormElement extends HTMLFormElement {
 }
 
 export default function JoySignInSideTemplate() {
+
+  
+  const navigateToShoppingApp = () => {
+    singleSpa.unregisterApplication('@oril/login-app');
+    return singleSpa.navigateToUrl('/shop');
+  }
+
   return (
     <CssVarsProvider
       defaultMode="dark"
@@ -141,6 +149,7 @@ export default function JoySignInSideTemplate() {
                   password: formElements.password.value,
                   persistent: formElements.persistent.checked,
                 };
+                navigateToShoppingApp();
                 alert(JSON.stringify(data, null, 2));
               }}
             >
@@ -179,7 +188,7 @@ export default function JoySignInSideTemplate() {
           </Box>
           <Box component="footer" sx={{ py: 3 }}>
             <Typography level="body3" textAlign="center">
-              © Your company {new Date().getFullYear()}
+              © ORIL {new Date().getFullYear()}
             </Typography>
           </Box>
         </Box>
